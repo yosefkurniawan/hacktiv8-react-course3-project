@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, SafeAreaView} from 'react-native';
+import {Text} from 'react-native';
 
 class Detail extends React.Component {
   static navigationOptions = {
@@ -7,9 +7,7 @@ class Detail extends React.Component {
   };
   render() {
     return (
-      <SafeAreaView>
         <Text>Halaman Detail</Text>
-      </SafeAreaView>
     );
   }
 }
