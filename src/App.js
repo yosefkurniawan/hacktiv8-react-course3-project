@@ -18,7 +18,7 @@ const App = () => {
           <RootStack.Screen
             name="Home"
             component={Home}
-            options={{title: 'Event List'}}
+            options={{title: 'Your Events'}}
           />
           <RootStack.Screen
             name="Create"
