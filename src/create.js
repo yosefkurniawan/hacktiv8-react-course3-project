@@ -34,7 +34,6 @@ const Create = ({navigation, events, addEvent}) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const toggleDatePicker = () => {
-    console.log(!showDatePicker);
     Keyboard.dismiss();
     return setShowDatePicker(!showDatePicker);
   };
@@ -51,10 +50,8 @@ const Create = ({navigation, events, addEvent}) => {
       title: title,
       timestamp: getTimeStamp(date),
     };
-    console.log(newEvent);
-    console.log(events);
+
     addEvent(newEvent);
-    console.log(events);
 
     setDate(new Date());
     setTitle('');
