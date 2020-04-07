@@ -1,56 +1,54 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Text, View, Button, StyleSheet, TouchableOpacity} from 'react-native';
 
-class Home extends React.Component {
-  static navigationOptions = {
-    title: 'Your Events',
-  };
-  render() {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.box}
-          onPress={() => this.props.navigation.navigate('Detail')}>
-          <View style={styles.eventInfo}>
-            <Text style={styles.eventDate}>7 Juni 2020</Text>
-            <Text style={styles.eventTitle}>Event Title is here</Text>
-          </View>
-          <View style={styles.counter}>
-            <View style={styles.counterItem}>
-              <Text style={styles.counterNumber}>48</Text>
-              <Text style={styles.counterTitle}>Days</Text>
-            </View>
-            <View style={styles.counterItem}>
-              <Text style={styles.counterNumber}>48</Text>
-              <Text style={styles.counterTitle}>Hours</Text>
-            </View>
-            <View style={styles.counterItem}>
-              <Text style={styles.counterNumber}>48</Text>
-              <Text style={styles.counterTitle}>Minutes</Text>
-            </View>
-            <View style={styles.counterItem}>
-              <Text style={styles.counterNumber}>48</Text>
-              <Text style={styles.counterTitle}>Seconds</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-
-        <View style={styles.actionsBox}>
-          {/* <Button
-            style={styles.button}
-            title="Go to Detail"
+const Home = ({events}) => {
+  return (
+    <View style={styles.container}>
+      {events.length ? (
+        events.map(event => (
+          <TouchableOpacity
+            style={styles.box}
             onPress={() => this.props.navigation.navigate('Detail')}
-          /> */}
-          <Button
-            style={styles.button}
-            title="Create New Event"
-            onPress={() => this.props.navigation.navigate('Create')}
-          />
-        </View>
+            key={event.id}>
+            <View style={styles.eventInfo}>
+              <Text style={styles.eventDate}>{event.date}</Text>
+              <Text style={styles.eventTitle}>{event.title}</Text>
+            </View>
+            <View style={styles.counter}>
+              <View style={styles.counterItem}>
+                <Text style={styles.counterNumber}>48</Text>
+                <Text style={styles.counterTitle}>Days</Text>
+              </View>
+              <View style={styles.counterItem}>
+                <Text style={styles.counterNumber}>48</Text>
+                <Text style={styles.counterTitle}>Hours</Text>
+              </View>
+              <View style={styles.counterItem}>
+                <Text style={styles.counterNumber}>48</Text>
+                <Text style={styles.counterTitle}>Minutes</Text>
+              </View>
+              <View style={styles.counterItem}>
+                <Text style={styles.counterNumber}>48</Text>
+                <Text style={styles.counterTitle}>Seconds</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ))
+      ) : (
+        <Text>There is no event yet...</Text>
+      )}
+
+      <View style={styles.actionsBox}>
+        <Button
+          style={styles.button}
+          title="Create New Event"
+          onPress={() => this.props.navigation.navigate('Create')}
+        />
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -61,6 +59,7 @@ const styles = StyleSheet.create({
   box: {
     padding: 15,
     backgroundColor: '#ffffff',
+    marginBottom: 15,
   },
   eventInfo: {
     flexDirection: 'row',
@@ -110,4 +109,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+const MapStateToProps = state => ({
+  events: state.events,
+});
+
+export default connect(
+  MapStateToProps,
+  null,
+)(Home);

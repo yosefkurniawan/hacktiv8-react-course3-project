@@ -1,21 +1,34 @@
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+import React from 'react';
 
+import {Provider, connect} from 'react-redux';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+import store from './stores/store';
 import Home from './home';
-import Detail from './detail';
 import Create from './create';
 
-const AppNavigator = createStackNavigator(
-  {
-    Home: Home,
-    Detail: Detail,
-    Create: Create,
-  },
-  {
-    initialRouteName: 'Home',
-  },
-);
+let RootStack = createStackNavigator();
 
-const AppContainer = createAppContainer(AppNavigator);
+const App = () => {
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <RootStack.Navigator>
+          <RootStack.Screen
+            name="Home"
+            component={Home}
+            options={{title: 'Event List'}}
+          />
+          <RootStack.Screen
+            name="Create"
+            component={Create}
+            options={{title: 'New Event'}}
+          />
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  );
+}
 
-export default AppContainer;
+export default App;
