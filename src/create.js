@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {addEvent} from './stores/actions';
 import {
   View,
   Text,
@@ -7,6 +9,7 @@ import {
   Button,
   TouchableOpacity,
   Keyboard,
+  ScrollView,
 } from 'react-native';
 // import DateTimePicker from '@react-native-community/datetimepicker';
 import DatePicker from 'react-native-date-picker';
@@ -20,7 +23,12 @@ const formatDate = date => {
   return date;
 };
 
-const Create = props => {
+const getTimeStamp = date => {
+  var d = new Date(date);
+  return d.getTime() / 1000;
+};
+
+const Create = ({navigation, events, addEvent}) => {
   const [date, setDate] = useState(new Date());
   const [title, setTitle] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -38,13 +46,26 @@ const Create = props => {
     }
     Keyboard.dismiss();
     setShowDatePicker(false);
+
+    const newEvent = {
+      title: title,
+      timestamp: getTimeStamp(date),
+    };
+    console.log(newEvent);
+    console.log(events);
+    addEvent(newEvent);
+    console.log(events);
+
+    setDate(new Date());
+    setTitle('');
+
     setTimeout(() => {
-      props.navigation.navigate('Home');
+      navigation.navigate('Home');
     }, 200);
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.box}>
         <TextInput
           style={styles.inputBox}
@@ -56,12 +77,6 @@ const Create = props => {
           <Text style={{alignItems: 'center'}}>{formatDate(date)}</Text>
         </TouchableOpacity>
 
-        {/* <TextInput
-          style={styles.inputBox}
-          placeholder="Date"
-          placeholderTextColor="#000"
-          onPress={toggleDatePicker}
-        /> */}
         {showDatePicker ? (
           <DatePicker
             date={date}
@@ -73,7 +88,7 @@ const Create = props => {
       <View style={styles.actionsBox}>
         <Button style={styles.button} title="Save" onPress={onSubmit} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -114,4 +129,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Create;
+const MapStateToProps = state => ({
+  events: state.events,
+});
+
+const MapDispatchToProps = dispatch => ({
+  addEvent: event => dispatch(addEvent(event)),
+});
+export default connect(
+  MapStateToProps,
+  MapDispatchToProps,
+)(Create);

@@ -1,10 +1,11 @@
-const eventReducer = function(state = [], action) {
+const eventReducer = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_EVENT':
-      return {
-        ...state,
-        message: action.event,
-      };
+        console.log('hai');
+        console.log(state.events);
+        console.log(...state.events, action.event);
+        console.log(action.event);
+      return {events: [...state.events, action.event]};
     default:
       return state;
   }

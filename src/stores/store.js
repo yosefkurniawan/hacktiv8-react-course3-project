@@ -1,27 +1,23 @@
 import {createStore} from 'redux';
 import eventReducer from './reducers';
 
-const initialEvents = [
-  {
-    id: 1,
-    title: 'Tahun Baru 2020',
-    date: '01/01/2020',
-    active: 0,
-  },
-  {
-    id: 2,
-    title: 'Tahun Baru 2021',
-    date: '01/01/2021',
-    active: 1,
-  },
-  {
-    id: 3,
-    title: 'Ulang Tahun',
-    date: '06/07/2020',
-    active: 1,
-  },
-];
+const initialEvents = {
+  events: [
+    {
+      title: 'Tahun Baru 2020',
+      timestamp: 1577811600,
+    },
+    {
+      title: 'Tahun Baru 2021',
+      timestamp: 1609434000,
+    },
+    {
+      title: 'Ulang Tahun',
+      timestamp: 1591462800,
+    },
+  ],
+};
 
-const store = createStore(eventReducer, {events: initialEvents});
+const store = createStore(eventReducer, initialEvents);
 
 export default store;
