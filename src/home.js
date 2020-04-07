@@ -7,15 +7,19 @@ class Home extends React.Component {
   };
   render() {
     return (
-        <SafeAreaView>
-          <Text>Welcome to React Navigation</Text>
-          <Button
-              title="Go to Detail"
-              onPress={() => this.props.navigation.navigate('Detail')}
-          />
-        </SafeAreaView>
+      <SafeAreaView>
+        <Text>Welcome to React Navigation</Text>
+        <Button
+          title="Go to Detail"
+          onPress={() => this.props.navigation.navigate('Detail')}
+        />
+        <Button
+          title="Create New Event"
+          onPress={() => this.props.navigation.navigate('Create')}
+        />
+      </SafeAreaView>
     );
   }
-};
+}
 
 export default Home;

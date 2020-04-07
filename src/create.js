@@ -1,17 +1,17 @@
 import React from 'react';
 import {Text, SafeAreaView} from 'react-native';
 
-class Detail extends React.Component {
+class Create extends React.Component {
   static navigationOptions = {
-    title: 'Detail',
+    title: 'New Event',
   };
   render() {
     return (
       <SafeAreaView>
-        <Text>Halaman Detail</Text>
+        <Text>Create New</Text>
       </SafeAreaView>
     );
   }
 }
 
-export default Detail;
+export default Create;
